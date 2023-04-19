@@ -11,39 +11,14 @@ dependencies = {file = ["requirements.txt"]}
 
 
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = "-ra -q --no-migrations --reuse-db --log-cli-level=INFO --cov-report=term-missing" # --cov-fail-under=90
+minversion = "7.0"
+addopts = "-ra -q --no-migrations --reuse-db --log-cli-level=INFO" # <-- add your options here
 testpaths = [
     "tests",
 ]
-asyncio_mode = "auto"
+asyncio_mode = "auto" # <-- enable asyncio support
 python_files = "tests.py test_*.py *_tests.py"
-DJANGO_SETTINGS_MODULE = "project.settings"
-filterwarnings = [
-    'ignore::DeprecationWarning:kombu.*:',
-    'ignore::DeprecationWarning:celery.*:',
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "raise NotImplementedError",
-    "if TYPE_CHECKING:",
-    "if __name__ == .__main__.:",
-    "import*",
-    "__init__",
-]
-
-
-[tool.coverage.run]
-omit = ["*/migrations/*", "*/tests/*", "*/conf/*", "codebase/manage.py", "*__init__.py", "codebase/documents/utils/*",
-    "codebase/documents/tasks.py", "codebase/documents/management/commands/*", "codebase/documents/admin.py",
-    "codebase/documents/urls.py", "codebase/documents/services/user.py",
-    "codebase/documents/signals.py", "codebase/documents/consumers/file.py",
-    "codebase/documents/services/base_service.py", "codebase/documents/models/*",
-    "codebase/documents/apps.py",
-]
-source = ["codebase"]
+DJANGO_SETTINGS_MODULE = "project.settings"  # <-- define your settings module here
 
 
 [tool.black]

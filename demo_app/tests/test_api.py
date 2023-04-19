@@ -1,17 +1,21 @@
 import pytest
-from demo_app.api import BookController
 from ninja_extra.testing import TestAsyncClient
+
+from demo_app.api import BookController
+from demo_app.schemas import BookSchema
 
 pytestmark = pytest.mark.asyncio
 
 
 class TestBookController:
     @pytest.fixture(autouse=True)
-    def setup(self, book):
-        self.book = book
+    def setup(self, books):
+        self.books = books
         self.client = TestAsyncClient(BookController)
 
     async def test_get(self):
-        response = await self.client.get("/api/books/")
+        response = await self.client.get("/books/")
         assert response.status_code == 200
-        assert response.json() == {"id": self.book.id, "title": "test"}
+        assert response.json() == [
+            BookSchema.from_orm(book).dict() for book in self.books
+        ]
