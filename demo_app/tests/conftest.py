@@ -31,14 +31,3 @@ async def books():
     await Book.objects.acreate(title="test")
     await Book.objects.acreate(title="test2")
     return [book async for book in Book.objects.prefetch_related("tags").all()]
-
-
-# @pytest.fixture
-# async def tag():
-#     return await Tag.objects.acreate(name="test")
-#
-#
-# @pytest.fixture
-# async def book_with_tags(book, tag):
-#     await book.tags.aset(tag)
-#     return book
