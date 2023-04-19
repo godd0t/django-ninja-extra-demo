@@ -1,0 +1,134 @@
+[project]
+name = "django-ninja-extra-demo"
+description = "Django Ninja Extra Demo"
+authors = [
+    {name = "godd0t", email = "lirrishala@gmail.com"},
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --no-migrations --reuse-db --log-cli-level=INFO --cov-report=term-missing" # --cov-fail-under=90
+testpaths = [
+    "tests",
+]
+asyncio_mode = "auto"
+python_files = "tests.py test_*.py *_tests.py"
+DJANGO_SETTINGS_MODULE = "project.settings"
+filterwarnings = [
+    'ignore::DeprecationWarning:kombu.*:',
+    'ignore::DeprecationWarning:celery.*:',
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "import*",
+    "__init__",
+]
+
+
+[tool.coverage.run]
+omit = ["*/migrations/*", "*/tests/*", "*/conf/*", "codebase/manage.py", "*__init__.py", "codebase/documents/utils/*",
+    "codebase/documents/tasks.py", "codebase/documents/management/commands/*", "codebase/documents/admin.py",
+    "codebase/documents/urls.py", "codebase/documents/services/user.py",
+    "codebase/documents/signals.py", "codebase/documents/consumers/file.py",
+    "codebase/documents/services/base_service.py", "codebase/documents/models/*",
+    "codebase/documents/apps.py",
+]
+source = ["codebase"]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data/
+  | profiling
+  | migrations
+  | docs
+  | deplyoment
+  | .git
+  | scripts
+  | codebase/media
+  | codebase/static
+  | codebase/idp_user
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip = "migrations"
+
+[tool.ruff]
+line-length = 88
+extend-exclude = [
+    "*/migrations/*",
+    "codebase/media/*",
+    "codebase/static/*",
+    "codbase/documents/tests/test_data/*",
+    "codebase/manage.py",
+    "*__init__.py",
+    "idp_user"
+]
+
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    # "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "F405", # name may be undefined, or defined from star imports
+]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "migrations",
+    "venv",
+]
+per-file-ignores = {}
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+
+# Assume Python 3.11.
+target-version = "py311"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10

@@ -1,9 +1,9 @@
 from typing import List, Optional
 
-from ninja import Schema, ModelSchema
+from ninja import ModelSchema, Schema
 from pydantic import Field
 
-from demo_app.models import Tag, Book
+from demo_app.models import Book, Tag
 
 
 class BookTagSchema(ModelSchema):
