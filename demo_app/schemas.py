@@ -7,7 +7,7 @@ from demo_app.models import Book, Tag
 
 
 class BookTagSchema(ModelSchema):
-    name: str
+    name: str = Field(..., description="Tag name")
 
     class Config:
         model = Tag
@@ -15,7 +15,7 @@ class BookTagSchema(ModelSchema):
 
 
 class BookSchema(ModelSchema):
-    title: str
+    title: str = Field(..., description="Book title")
     tags: List[BookTagSchema] = []
 
     class Config:
@@ -24,5 +24,5 @@ class BookSchema(ModelSchema):
 
 
 class BookCreateSchema(Schema):
-    title: str
+    title: str = Field(..., description="Book title")
     tags: Optional[List[str]] = Field([], description="List of tag names")

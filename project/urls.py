@@ -5,5 +5,5 @@ from project.api import api
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", api.urls),  # <--- Register API urls
+    path("api/", api.urls),  # <---------- !!!
 ]

@@ -7,4 +7,4 @@ api = NinjaExtraAPI(
     title="Project API",
 )
 
-api.register_controllers(BookController)
+api.register_controllers(BookController)  # <-- register controller
